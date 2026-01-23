@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Forod Master - Moroccan Semester</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="semester-status">
+            <span id="lang-btn" class="lang-btn">🌐 EN</span>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <span id="text-subjects-passed">Subjects Passed: <span id="completed-count">0</span>/9</span>
+                <span id="text-subjects-failed">Subjects Failed: <span id="failed-count">0</span></span>
+            </div>
+        </div>
+        
+        <div id="device-menu" class="hidden">
+            <h1>Forod Master</h1>
+            <p id="text-semester-intro">Forod ta3 Semester 1</p>
+            <h3 id="text-device-select">Select Your Device:</h3>
+            <button onclick="selectDevice('pc')" id="text-device-pc">🖥️ PC / Desktop</button>
+            <button onclick="selectDevice('mobile')" id="text-device-mobile">📱 Mobile / Tablet</button>
+        </div>
+        
+        <div id="menu" class="hidden">
+            <h1>Forod Master</h1>
+            <p id="text-semester">Forod ta3 Semester 1</p>
+            
+            <div class="setup-grid">
+                <div class="option">
+                    <label id="text-gender">Gender:</label>
+                    <select id="gender">
+                        <option value="male" id="text-male">Male</option>
+                        <option value="female" id="text-female">Female</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label id="text-french">Speak French?</label>
+                    <select id="french-skill">
+                        <option value="yes" id="text-yes">Yes</option>
+                        <option value="no" id="text-no">No</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label id="text-photo">Student Photo:</label>
+                    <input type="file" id="imageLoader" accept="image/*">
+                </div>
+                <div class="option" style="grid-column: 1 / -1;">
+                    <button onclick="resetAllProgress()" id="reset-btn" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); width: 100%; margin-top: 10px;">
+                        <span id="text-reset">🔄 Reset All Progress</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr>
+            <h3 id="text-choose-exam">Choose your Exam:</h3>
+            <div id="subject-list">
+                <button onclick="startGame('English')">English</button>
+                <button onclick="startGame('Islamic')">Islamic</button>
+                <button onclick="startGame('Arabic')">Arabic</button>
+                <button onclick="startGame('PH')">Philosophy</button>
+                <button onclick="startGame('Francais')">French</button>
+                <button onclick="startGame('SVT')">SVT</button>
+                <button onclick="startGame('PC')">Physics</button>
+                <button onclick="startGame('Math')">Math</button>
+                <button onclick="startGame('Sport')">Sport</button>
+            </div>
+            
+            <hr>
+            <div style="position: relative; margin-top: 20px;">
+                <button id="calculate-semester-btn" onclick="calculateSemester()" disabled style="opacity: 0.5; cursor: not-allowed; position: relative;">
+                    🔒 Count ur Semester Forod
+                </button>
+                <div id="semester-bubble" class="bubble-tooltip hidden">
+                    <p>You need to finish all subjects to unlock this!</p>
+                    <p style="font-size: 11px; margin-top: 5px;">Multipliers: Math/SVT/PC=7x, Sport/Francais=4x, PH=3x, English/Arabic=2x, Islamic=1x</p>
+                </div>
+            </div>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+        <button id="mobile-jump" class="hidden" onmousedown="jump()"><span id="text-jump">JUMP</span></button>
+        <button id="go-back-btn" class="hidden" onclick="goBackFromGame()" style="position: absolute; top: 20px; left: 20px; z-index: 200; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5); border: 3px solid rgba(255, 255, 255, 0.3);"><span id="text-go-back">← Go Back</span></button>
+
+        <div id="overlay" class="hidden">
+            <h2 id="result-title"></h2>
+            <p id="result-score"></p>
+            <p id="meme-text"></p>
+            <button onclick="retryExam()" id="text-retry">Retry Exam</button>
+            <button onclick="backToMenu()" id="text-next">Next Exam</button>
+        </div>
+
+        <div id="music-player" class="music-player">
+            <audio id="bgm" loop></audio>
+            <button id="music-toggle" onclick="toggleMusic()">🔊</button>
+            <input type="range" id="volume-slider" min="0" max="100" value="30" onchange="setVolume(this.value)">
+        </div>
+    </div>
+
+    <audio id="snd-fail" src="https://www.myinstants.com/media/sounds/vine-boom.mp3"></audio>
+    <audio id="snd-pass" src="https://www.myinstants.com/media/sounds/suuu.mp3"></audio>
+    <audio id="snd-click" preload="auto"></audio>
+    <audio id="snd-whoosh" preload="auto"></audio>
+    <audio id="snd-meme" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
